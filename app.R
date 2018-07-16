@@ -9,6 +9,7 @@
 library(shiny)
 library(ggplot2)
 trend_data <- read.csv("complete.csv")
+#View(trend_data)
 best20_data <- read.csv("BEST25.csv")
 trend_description <- read.csv("leagues.txt")
 premierleague_clubs <- read.csv("premireleague_clubs.txt")
@@ -17,17 +18,39 @@ german_clubs <- read.csv("german_clubs.txt")
 italian_clubs <- read.csv("italian_clubs.txt")
 # Define UI for application that draws a histogram
 ui <- fluidPage(theme = "bootstrap.css",
-                navbarPage("FIFA 18 DATA ANALYSIS SYSTEM",
-                           tabPanel("BEST SQUAD'S",
+                tags$head(
+                ),
+                h1("FIFA 18 DATA ANALYSIS SYSTEM",
+                   style = "font-family: 'Times new roman', cursive;
+       font-weight: 200; line-height: 1.1; 
+       color: #0000FF;
+       text-align:center;
+       font-weight: bold;
+       border: 2px solid #660033;
+       border-radius: 5px;
+       font-size: 3.5em;
+       border-bottom:red solid 5px;
+       border-right:red solid 2px;
+       border-left:red solid 2px;
+       border-top:red solid 5px;
+       background-color:white;
+       box-shadow: 0 4px 4px 0 rgba(50, 50, 50, 0.4);
+                   margin-top:-10px;"
+                ),
+                navbarPage("",
+                           tabPanel("BEST SQUAD",style="color:#0000FF;margin-left:30px",
+
+                        
                                     
-                                    # Application title
-                                    titlePanel(title = h1("FIFA 18 Data Analysis System", align="center",style="font-family:Algerian"
-                                    )),
                                     
                                     # Sidebar with a slider input for number of bins 
                                     sidebarLayout(
                                       sidebarPanel(
-                                        tags$style("body{background-color:linen;color:blue}"),
+                                        tags$style("body{background-image:url('F1.jpg');
+                                        
+                                      margine-top:-30px;
+                                                   }"),
+                            
                                         selectInput(inputId = "league", label = strong("Select League"),
                                                     choices = c(trend_description)
                                         ),
@@ -35,12 +58,12 @@ ui <- fluidPage(theme = "bootstrap.css",
                                         
                                         
                                         conditionalPanel(condition = "input.league=='English Premier League'",
-                                                         selectInput(inputId = "club", label = strong("Select Clube"),
+                                                         selectInput(inputId = "club", label = strong("Select Club"),
                                                                      as.character(levels(premierleague_clubs$x),selected="")
                                                          )),
                                         
                                         conditionalPanel(condition = "input.league=='spanish primera division'",
-                                                         selectInput(inputId = "club", label = strong("Select Clube"),
+                                                         selectInput(inputId = "club", label = strong("Select Club"),
                                                                      as.character(levels(spanish_clubs$x),selected="")
                                                          )),
                                         conditionalPanel(condition = "input.league=='German Bundesliga'",
@@ -76,9 +99,9 @@ ui <- fluidPage(theme = "bootstrap.css",
                                       dataTableOutput('table1')
                                     )
                            ),
-                           tabPanel("DATA VISUALIZATION",
+                           tabPanel("DATA VISUALIZATION",style="color:#0000FF",
                                     
-                                    titlePanel(title=h2("FIFA 18 DISTRIBUTION BETWEEN PLAYER'S AGE, OVERALL AND POTENTIAL",style="font-family:Algerian")),
+                                    titlePanel(title=h2("FIFA 18 DISTRIBUTION BETWEEN PLAYER'S AGE, OVERALL AND POTENTIAL",style="font-family:Times new roman;color:white;align:centre")),
                                     sidebarLayout(
                                       sidebarPanel(
                                         radioButtons("pType", "CHOOSE DISTRIBUTION BETWEEN",
@@ -98,9 +121,9 @@ ui <- fluidPage(theme = "bootstrap.css",
                                       )
                                     )
                            ),
-                           tabPanel("TOP 25",
+                           tabPanel("TOP 25 PLAYERS",style="color:#0000FF",
                                     
-                                    titlePanel(title = h2("TO 25 BEST PLAYERS",style="font-family:Algerian",align="center")),
+                                    titlePanel(title = h2("TO 25 BEST PLAYERS",style="font-family:Times new roman;color:white")),
                                     ## Only run this example in interactive R sessions
                                     if (interactive()) {
                                       # table example
@@ -136,9 +159,9 @@ ui <- fluidPage(theme = "bootstrap.css",
                            ),
                            
                            
-                           tabPanel("PREDICTIONS",
+                           tabPanel("PREDICTIONS",style="color:#0000FF",
                                     
-                                    titlePanel(title = h2("PREDICTION ON WHICH CLUB WILL TAKE THE TROPHY",style="font-family:Algerian",align="center")),
+                                    titlePanel(title = h2("PREDICTION ON WHICH CLUB WILL TAKE THE TROPHY",style="font-family:Times new roman;color:white")),
                                     sidebarLayout(
                                       sidebarPanel(
                                         selectInput(inputId = "lea", label = strong("Select League"),
@@ -150,9 +173,9 @@ ui <- fluidPage(theme = "bootstrap.css",
                                                        "TAKE THE GOLDEN BOOT" = "tateP",
                                                        "TAKE THE GOLDEN GLOVES"="tregion"
                                                      ))
-                                        
+
                                       ),
-                                      
+
                                       # Show a plot of the generated distribution
                                       mainPanel(
                                         plotOutput("istPlot")
@@ -160,32 +183,58 @@ ui <- fluidPage(theme = "bootstrap.css",
                                     )
                            ),
                            
-                           tabPanel("More Information",   # Information about data collection.
-                                    "Data are updated weekly on Thursday at 20:00 CT.",
+                           tabPanel( 
+                             "MORE INFORMATION",   # Information about data collection.
+                                    a("Data are updated weekly on Thursday at 20:00 CT.",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
                                     br(),
-                                    "Please visit", 
-                                    a("this site", href="http://wwwn.cdc.gov/nndss/document/ProvisionalNationaNotifiableDiseasesSurveillanceData20100927.pdf"),
-                                    "for more information on how the data were collected.  All data are provisional.",
+                                    a("Please visit",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"), 
+                                    a("this site", href="http://wwwn.cdc.gov/nndss/document/ProvisionalNationaNotifiableDiseasesSurveillanceData20100927.pdf",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
+                                    a("for more information on how the data were collected.",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
                                     br(),
-                                    a("See the code", href="https://github.com/NLMichaud/WeeklyCDCPlot"),
+                                    a("See the code", href="https://github.com/NLMichaud/WeeklyCDCPlot",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
                                     br(),
-                                    "Any questions or comments can be sent to",
+                                    a("Any questions or comments can be sent to",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
-                                    "NSUBUGA MOSES: " ,
-                                    a("nsubugamoses93@gmail.com", href="mailto:nsubugamoses93@gmail.com"),
+                                    a("NSUBUGA MOSES:",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px") ,
+                                    a("nsubugamoses93@gmail.com", href="mailto:nsubugamoses93@gmail.com",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
-                                    "OMACHOL JAMES: ",
-                                    a("omacholjames@gmail.com", href="mailto:omacholjames@gmail.com"),
+                                    a("OMACHOL JAMES:",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
+                                    a("jamesomachol@gmail.com", href="mailto:omacholjames@gmail.com",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
                                     br(),
-                                    "SSEBUUFU EDDY: ",
-                                    a("ssebuufueddyson@yahoo.com", href="ssebuufueddyson@yahoo.com")
-                           )
+                                    a("SSEBUUFU EDDY: ",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
+                                    a("ssebuufueddyson@yahoo.com", href="ssebuufueddyson@yahoo.com",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
+                                    br(),
+                                    a("KAZIBWE DAVIS: ",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px"),
+                                    a("kazibwedavis@gmail.com", href="ssebuufueddyson@yahoo.com",style="font-family:Times new roman;color:#F0F8FF;font-weight: bold;font-size:20px")
+                             )
                            
                            
-                ))
+                ),
+                tags$style(".well{
+                           background-color:lightblue;
+                           height:400px;
+                           }
+                           .row{
+                           margin-top:20px;
+                           }
+                           
+                           ul{
+                           background-color:lightblue;
+                           height:auto;
+                           border-radius:5px;
+                           border-bottom: 5px solid red;
+                           }
+                           ul li{
+                           background-color:lightblue;
+                           border-radius:5px;
+                           }"
+               
+                )
+
+                            )
 # Define server logic required to draw a histogram
 
 server <- function(input, output) {
